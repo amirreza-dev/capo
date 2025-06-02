@@ -94,6 +94,8 @@ export default function Home() {
          {currentName}
         </div>
        </div>
+
+       <p className='text-center rotate-180 mt-12 text-3xl'>{currentName}</p>
       </div>
      </div>
 
@@ -105,7 +107,7 @@ export default function Home() {
     </>
    )}
 
-   <footer className='mt-20 text-sm text-gray-300'>
+   <footer className='mt-36 text-sm text-gray-300'>
     طراحی و توسعه توسط{' '}
     <Link href='https://amirreza.dev' className='hover:text-white'>
      امیررضا
