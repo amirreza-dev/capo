@@ -1,103 +1,116 @@
-import Image from "next/image";
+'use client';
+
+import Link from 'next/link';
+import { useState } from 'react';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+ const [count, setCount] = useState<number | null>(null);
+ const [remainingNames, setRemainingNames] = useState<string[]>([]);
+ const [currentName, setCurrentName] = useState<string | null>(null);
+ const [isShowing, setIsShowing] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+ const allNames = [
+  'دن مافیا',
+  'جلاد',
+  'جادوگر',
+  'کارآگاه',
+  'زره ساز',
+  'شهروند ساده',
+  'عطار',
+  'مظنون',
+  'وارث',
+  'شهروند ساده',
+  'جاسوس',
+  'کدخدا',
+  'شهروند ساده',
+  'شهروند ساده',
+  'شهروند ساده',
+ ];
+
+ const shuffleArray = (arr: string[]) =>
+  [...arr].sort(() => Math.random() - 0.5);
+
+ const handleCountSelection = (selectedCount: number) => {
+  const selectedNames = allNames.slice(0, selectedCount);
+  setCount(selectedCount);
+  setRemainingNames(shuffleArray(selectedNames));
+  setCurrentName(null);
+  setIsShowing(false);
+ };
+
+ const handleButtonClick = () => {
+  if (isShowing) {
+   setIsShowing(false);
+   setCurrentName(null);
+  } else {
+   if (remainingNames.length === 0) return;
+   const [next, ...rest] = remainingNames;
+   setCurrentName(next);
+   setRemainingNames(rest);
+   setIsShowing(true);
+  }
+ };
+
+ return (
+  <main className='min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-slate-800 to-gray-900 text-white p-6'>
+   <h1 className='text-4xl font-extrabold mb-8 text-center'>
+    سناریو کاپو {count === null ? 10 : count} نفره
+   </h1>
+
+   <h2 className='text-2xl font-semibold mb-4'>تعداد نقش‌هارو انتخاب کن:</h2>
+
+   <div className='flex gap-4 mb-10'>
+    {[10, 13, 15].map((num) => (
+     <button
+      key={num}
+      onClick={() => handleCountSelection(num)}
+      disabled={count === num}
+      className={`px-5 py-2 rounded-lg transition-all duration-200 font-semibold ${
+       count === num
+        ? 'bg-blue-700 cursor-not-allowed text-white'
+        : 'bg-blue-500 hover:bg-blue-600 text-white'
+      }`}
+     >
+      {num}
+     </button>
+    ))}
+   </div>
+
+   {count !== null && (
+    <>
+     <button
+      onClick={handleButtonClick}
+      disabled={remainingNames.length === 0 && !isShowing}
+      className='mb-8 px-6 py-3 rounded-xl bg-green-500 hover:bg-green-600 disabled:opacity-50 text-white text-lg font-bold shadow-md transition-all duration-200'
+     >
+      {isShowing ? 'مخفی کردن' : 'نمایش نقش'}
+     </button>
+
+     <div className='perspective-1000'>
+      <div className={`flip-card ${isShowing ? 'flipped' : ''}`}>
+       <div className='flip-card-inner'>
+        <div className='flip-card-front bg-gray-700 rounded-2xl shadow-lg' />
+        <div className='flip-card-back bg-purple-700 rounded-2xl shadow-xl flex items-center justify-center text-3xl font-bold'>
+         {currentName}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+       </div>
+      </div>
+     </div>
+
+     {remainingNames.length === 0 && !isShowing && (
+      <p className='mt-6 px-6 py-3 bg-red-600 text-white rounded-xl shadow-md text-lg font-medium'>
+       تمام نقش‌ها نمایش داده شدند!
+      </p>
+     )}
+    </>
+   )}
+
+   <footer className='mt-20 text-sm text-gray-300'>
+    طراحی و توسعه توسط{' '}
+    <Link href='https://amirreza.dev' className='underline hover:text-white'>
+     امیررضا
+    </Link>
+   </footer>
+  </main>
+ );
 }
