@@ -83,7 +83,7 @@ export default function Home() {
       disabled={remainingNames.length === 0 && !isShowing}
       className='mb-8 px-6 py-3 rounded-xl bg-green-500 hover:bg-green-600 disabled:opacity-50 text-white text-lg font-bold shadow-md transition-all duration-200'
      >
-      {isShowing ? 'مخفی کردن' : 'نمایش نقش'}
+      {isShowing ? 'بعدی' : 'نمایش نقش'}
      </button>
 
      <div className='perspective-1000'>
