@@ -54,10 +54,10 @@ export default function Home() {
  return (
   <main className='min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-slate-800 to-gray-900 text-white p-6'>
    <h1 className='text-4xl font-extrabold mb-8 text-center'>
-    سناریو کاپو {count === null ? 10 : count} نفره
+    سناریو کاپو {count === null ? null : `${count} ${'نفره'}`}
    </h1>
 
-   <h2 className='text-2xl font-semibold mb-4'>تعداد نقش‌هارو انتخاب کن:</h2>
+   <h2 className='text-2xl font-semibold mb-4'>تعداد نقش ها رو انتخاب کن:</h2>
 
    <div className='flex gap-4 mb-10'>
     {[10, 13, 15].map((num) => (
@@ -100,7 +100,7 @@ export default function Home() {
      </div>
 
      {remainingNames.length === 0 && !isShowing && (
-      <p className='mt-6 px-6 py-3 bg-red-600 text-white rounded-xl shadow-md text-lg font-medium'>
+      <p className='mt-6 px-6 py-3 bg-red-500 text-white rounded-xl shadow-md text-lg font-medium'>
        تمام نقش‌ها نمایش داده شدند!
       </p>
      )}
@@ -109,7 +109,11 @@ export default function Home() {
 
    <footer className='mt-36 text-sm text-gray-300'>
     طراحی و توسعه توسط{' '}
-    <Link href='https://amirreza.dev' className='hover:text-white'>
+    <Link
+     href='https://amirreza.dev'
+     target='_blank'
+     className='hover:text-white'
+    >
      امیررضا
     </Link>
    </footer>
