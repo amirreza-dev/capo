@@ -23,8 +23,6 @@ export default function Home() {
   'جاسوس',
   'کدخدا',
   'شهروند ساده',
-  'شهروند ساده',
-  'شهروند ساده',
  ];
 
  const shuffleArray = (arr: string[]) =>
@@ -60,7 +58,7 @@ export default function Home() {
    <h2 className='text-2xl font-semibold mb-4'>تعداد نقش ها رو انتخاب کن:</h2>
 
    <div className='flex gap-4 mb-10'>
-    {[10, 13, 15].map((num) => (
+    {[10, 12, 13].map((num) => (
      <button
       key={num}
       onClick={() => handleCountSelection(num)}
