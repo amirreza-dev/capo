@@ -107,7 +107,7 @@ export default function Home() {
 
    <footer className='mt-20 text-sm text-gray-300'>
     طراحی و توسعه توسط{' '}
-    <Link href='https://amirreza.dev' className='underline hover:text-white'>
+    <Link href='https://amirreza.dev' className='hover:text-white'>
      امیررضا
     </Link>
    </footer>
